@@ -30,26 +30,36 @@ dotnet run --project Lab1
 This is a .NET 9.0 C# project implementing a generic Binary Search Tree data structure with MSTest-based unit tests.
 
 ### Projects
+
 - **Lab1/** - Main library containing the BST implementation
 - **Lab1.Tests/** - MSTest 4.0 test suite
 
 ### Core Classes
+
 - `IBinarySearchTree<T>` - Interface defining all required BST operations
-- `BinarySearchTree<T>` - Main implementation class (some methods throw `NotImplementedException` and need implementation)
+- `BinarySearchTree<T>` - Main implementation class in `BinarySearchTree.cs`
 - `BinarySearchTreeNode<T>` - Node class with Key (int), Value (T), Left, Right, and Parent pointers
 
+
 ### Implementation Status
-Several methods in `BinarySearchTree.cs` are stubbed with `NotImplementedException`:
-- `MinKey`, `MaxKey`, `Max` properties
+
+The following are already implemented in `BinarySearchTree.cs`:
+
+- `Add()` - Recursive insertion with parent pointer maintenance
+- `Count`, `IsEmpty` properties
+
+Methods stubbed with `NotImplementedException` that need implementation:
+
+- `Height` property
+- `GetNode()`, `Clear()`, `Contains()`, `Remove()`, `Search()`, `Update()`
+- `MinKey`, `MaxKey`, `Min`, `Max` properties
 - `MedianKey` property
 - `MinNode()`, `MaxNode()` methods
 - `Next()`, `Prev()` - in-order successor/predecessor
-- `RangeSearch()` - returns null currently
-- `Remove()`, `Search()` methods
-- `PreOrderKeys`, `PostOrderKeys` traversals
-
-Already implemented: `Add()`, `Contains()`, `GetNode()`, `Clear()`, `Update()`, `Height`, `Count`, `IsEmpty`, `Min`, `InOrderKeys`
+- `RangeSearch()` - range query
+- `InOrderKeys`, `PreOrderKeys`, `PostOrderKeys` traversals
 
 ### Test Organization
-- **BasicTests.cs** - Tests for Add, Remove, Height, Parent relationships, Clear, Update, traversals, Contains, Count
-- **AdvancedTests.cs** - Tests for Search, MinKey/MaxKey, MedianKey, Next/Prev, RangeSearch
+
+- **BasicTests.cs** - Tests for Add(), Remove(), Height, Parent, Clear(), Update(), traversals, Contains(), Count, Search(), GetNode()
+- **AdvancedTests.cs** - Tests for MinKey/MaxKey, MedianKey, Next/Prev, RangeSearch

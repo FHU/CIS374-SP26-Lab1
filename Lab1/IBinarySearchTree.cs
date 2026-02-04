@@ -63,6 +63,13 @@ public interface IBinarySearchTree<T>
     /// </summary>
     public int Height { get; }
 
+    /// <summary>
+    /// Retrieves the node with the specified key.
+    /// </summary>
+    /// <param name="key">The key to search for.</param>
+    /// <returns>The node with the specified key, or null if not found.</returns>
+    public BinarySearchTreeNode<T> GetNode(int key);
+
     // Advanced
 
     /// <summary>
@@ -144,4 +151,6 @@ public interface IBinarySearchTree<T>
     /// Gets all keys in post-order sequence (Left, Right, Root).
     /// </summary>
     public List<int> PostOrderKeys { get; }
+
+    
 }

@@ -1,20 +1,19 @@
 ﻿namespace Lab1;
 
-public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
+public class BinarySearchTree<T> : IBinarySearchTree<T>
 {
 
-    private BinarySearchTreeNode<T>? Root {get;set;}
+    private BinarySearchTreeNode<T>? Root { get; set; }
 
     public bool IsEmpty => Root == null;
 
-    public int Count {get; private set;}
+    public int Count { get; private set; }
 
     public int Height => throw new NotImplementedException();
 
-
     public void Add(int key, T value)
     {
-        if(IsEmpty)
+        if (IsEmpty)
         {
             Root = new BinarySearchTreeNode<T>(key, value);
             Count++;
@@ -28,13 +27,13 @@ public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
     private void AddRecursive(int key, T value, BinarySearchTreeNode<T> parent)
     {
         // existing key => update the value
-        if( key == parent.Key)
+        if (key == parent.Key)
         {
             parent.Value = value;
             return;
         }
-        
-        if( key < parent.Key)
+
+        if (key < parent.Key)
         {
             // look left
             if (parent.Left == null)
@@ -48,11 +47,11 @@ public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
             {
                 AddRecursive(key, value, parent.Left);
             }
-        } 
+        }
         else
         {
             // look right 
-            if( parent.Right == null )
+            if (parent.Right == null)
             {
                 var newNode = new BinarySearchTreeNode<T>(key, value);
                 parent.Right = newNode;
@@ -61,8 +60,8 @@ public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
             }
             else
             {
-                AddRecursive(key,value, parent.Right);
-            }   
+                AddRecursive(key, value, parent.Right);
+            }
         }
     }
 
@@ -91,10 +90,14 @@ public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
         throw new NotImplementedException();
     }
 
+    public BinarySearchTreeNode<T> GetNode(int key)
+    {
+        throw new NotImplementedException();
+    }
 
     // Advanced 
 
-     public BinarySearchTreeNode<T> MaxNode(BinarySearchTreeNode<T> node)
+    public BinarySearchTreeNode<T> MaxNode(BinarySearchTreeNode<T> node)
     {
         throw new NotImplementedException();
     }
@@ -119,7 +122,7 @@ public class BinarySearchTreeNode<T> : IBinarySearchTree<T>
         throw new NotImplementedException();
     }
 
-     public int? MinKey => throw new NotImplementedException();
+    public int? MinKey => throw new NotImplementedException();
 
     public int? MaxKey => throw new NotImplementedException();
 

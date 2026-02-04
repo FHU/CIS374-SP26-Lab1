@@ -1,20 +1,9 @@
 namespace Lab1.Tests;
+using Lab1;
 
 [TestClass]
 public class AdvancedTests
 {
-
-    [TestMethod]
-    public void Search()
-    {
-        BinarySearchTree<int> tree = new BinarySearchTree<int>();
-        tree.Add(8, 9);
-        tree.Add(10, 11);
-        tree.Add(6, 7);
-        tree.Add(5, 6);
-        Assert.AreEqual(6, tree.Search(5));
-        Assert.AreEqual(9, tree.Search(8));
-    }
 
     [TestMethod]
     public void MinKey1()
