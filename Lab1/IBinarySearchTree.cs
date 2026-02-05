@@ -109,6 +109,7 @@ public interface IBinarySearchTree<T>
     /// <summary>
     /// Gets the median key value. For an odd number of nodes, returns the middle key.
     /// For an even number of nodes, returns the average of the two middle keys.
+    /// For an empty tree, throw an InvalidOperationException.
     /// </summary>
     public double MedianKey { get; }
 

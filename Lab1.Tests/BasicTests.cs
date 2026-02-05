@@ -23,8 +23,8 @@ public class BasicTests
         tree.Add(2, 30);
         tree.Add(3, 30);
         tree.Add(3, 20);
-        Assert.AreEqual(tree.Height, 1);
-        Assert.AreEqual(tree.GetNode(3).Value, 20);
+        Assert.AreEqual(1, tree.Height);
+        Assert.AreEqual(20, tree.GetNode(3).Value);
     }
 
 
@@ -379,6 +379,40 @@ public class BasicTests
         tree.Add(8, 9);
         tree.Clear();
         Assert.IsTrue(tree.IsEmpty);
+        Assert.AreEqual(0, tree.Count);
+    }
+
+    [TestMethod]
+    public void ClearThenAdd()
+    {
+        BinarySearchTree<int> tree = new BinarySearchTree<int>();
+        tree.Add(8, 9);
+        tree.Add(10, 11);
+        tree.Clear();
+        Assert.IsTrue(tree.IsEmpty);
+        tree.Add(5, 50);
+        tree.Add(3, 30);
+        tree.Add(7, 70);
+        Assert.IsFalse(tree.IsEmpty);
+        Assert.AreEqual(3, tree.Count);
+        Assert.AreEqual(50, tree.Search(5));
+        Assert.AreEqual(30, tree.Search(3));
+        Assert.AreEqual(70, tree.Search(7));
+    }
+
+    [TestMethod]
+    public void RemoveDecrementsCount()
+    {
+        BinarySearchTree<int> tree = new BinarySearchTree<int>();
+        tree.Add(8, 9);
+        tree.Add(10, 11);
+        tree.Add(6, 7);
+        tree.Add(5, 6);
+        Assert.AreEqual(4, tree.Count);
+        tree.Remove(5);
+        Assert.AreEqual(3, tree.Count);
+        tree.Remove(8);
+        Assert.AreEqual(2, tree.Count);
     }
 
     [TestMethod]
@@ -425,6 +459,16 @@ public class BasicTests
         tree.Add(5, 6);
         Assert.AreEqual(6, tree.Search(5));
         Assert.AreEqual(9, tree.Search(8));
+    }
+
+    [TestMethod]
+    public void SearchNotFound()
+    {
+        BinarySearchTree<int> tree = new BinarySearchTree<int>();
+        tree.Add(8, 9);
+        tree.Add(10, 11);
+        tree.Add(6, 7);
+        Assert.ThrowsExactly<KeyNotFoundException>(() => tree.Search(99));
     }
 
     [TestMethod]
@@ -496,7 +540,41 @@ public class BasicTests
         Assert.AreEqual(22, keys[5]);
         Assert.AreEqual(23, keys[6]);
         Assert.AreEqual(26, keys[7]);
+    }
 
+    [TestMethod]
+    public void TraversalsLinearTree()
+    {
+        // Linear tree (all right children): 1 -> 2 -> 3 -> 4
+        BinarySearchTree<int> tree = new BinarySearchTree<int>();
+        tree.Add(1, 1);
+        tree.Add(2, 2);
+        tree.Add(3, 3);
+        tree.Add(4, 4);
+
+        // InOrder: 1, 2, 3, 4
+        List<int> inOrder = tree.InOrderKeys;
+        Assert.AreEqual(4, inOrder.Count);
+        Assert.AreEqual(1, inOrder[0]);
+        Assert.AreEqual(2, inOrder[1]);
+        Assert.AreEqual(3, inOrder[2]);
+        Assert.AreEqual(4, inOrder[3]);
+
+        // PreOrder: 1, 2, 3, 4 (same as InOrder for right-only tree)
+        List<int> preOrder = tree.PreOrderKeys;
+        Assert.AreEqual(4, preOrder.Count);
+        Assert.AreEqual(1, preOrder[0]);
+        Assert.AreEqual(2, preOrder[1]);
+        Assert.AreEqual(3, preOrder[2]);
+        Assert.AreEqual(4, preOrder[3]);
+
+        // PostOrder: 4, 3, 2, 1 (reverse order for right-only tree)
+        List<int> postOrder = tree.PostOrderKeys;
+        Assert.AreEqual(4, postOrder.Count);
+        Assert.AreEqual(4, postOrder[0]);
+        Assert.AreEqual(3, postOrder[1]);
+        Assert.AreEqual(2, postOrder[2]);
+        Assert.AreEqual(1, postOrder[3]);
     }
 
 
@@ -509,8 +587,8 @@ public class BasicTests
         tree.Add(10, 11);
         tree.Add(6, 7);
         tree.Add(5, 6);
-        Assert.AreEqual(true, tree.Contains(5));
-        Assert.AreEqual(false, tree.Contains(22));
+        Assert.IsTrue(tree.Contains(5));
+        Assert.IsFalse(tree.Contains(22));
     }
 
 
@@ -519,9 +597,9 @@ public class BasicTests
     public void IsEmpty()
     {
         BinarySearchTree<int> tree = new BinarySearchTree<int>();
-        Assert.AreEqual(true, tree.IsEmpty);
+        Assert.IsTrue(tree.IsEmpty);
         tree.Add(8, 9);
-        Assert.AreEqual(false, tree.IsEmpty);
+        Assert.IsFalse(tree.IsEmpty);
     }
 
     [TestMethod]
@@ -545,5 +623,15 @@ public class BasicTests
         tree.Add(5, 6);
         Assert.AreEqual(6, tree.GetNode(5).Value);
         Assert.AreEqual(9, tree.GetNode(8).Value);
+    }
+
+    [TestMethod]
+    public void GetNodeNotFound()
+    {
+        BinarySearchTree<int> tree = new BinarySearchTree<int>();
+        tree.Add(8, 9);
+        tree.Add(10, 11);
+        tree.Add(6, 7);
+        Assert.IsNull(tree.GetNode(99));
     }
 }
